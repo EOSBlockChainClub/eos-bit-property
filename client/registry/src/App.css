@@ -1,32 +1,150 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+	animation: App-logo-spin infinite 20s linear;
+	height: 40vmin;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
 }
 
 .App-link {
-  color: #61dafb;
+	color: #61dafb;
+}
+
+/* Main layout */
+.app {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.app-header {
+	border-radius: 0 !important;
+}
+
+.app-body {
+	flex: 1;
+	/* overflow: auto; */
+}
+
+/* custom underline style for active menu item */
+.app-header .ui.menu .item.active {
+	border-bottom: solid 2px #fff;
+	border-radius: 0 !important;
+	background: 0 !important;
+}
+
+/* custom hover effect on menu item */
+.app-header .ui.menu a.item,
+.app-header .ui.menu a.item:after,
+.app-header .ui.menu a.item:before {
+	transition: all 0.5s;
+}
+
+.app-header .ui.menu a.item:after {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	width: 100%;
+	height: 1px;
+	content: ".";
+	color: transparent;
+	background: #41403e;
+	visibility: none;
+	opacity: 0;
+	z-index: -1;
+}
+
+.app-header .ui.menu a.item:hover:after {
+	opacity: 1;
+	visibility: visible;
+	height: 100%;
+}
+
+.app-header .ui.menu a.item {
+	position: relative;
+	z-index: 1;
+}
+
+/* end custom hover effect on menu item */
+
+/* Custom overrides */
+
+.ui.form {
+	text-align: left;
+}
+
+.ui.form .field > label {
+	font-size: 1em !important;
+}
+
+.ui.accordion .title,
+.ui.top.attached.header {
+	background-color: #e4e8e8;
+}
+
+.ui.button {
+	min-width: 10rem;
+}
+
+button.ui.basic.primary.button:hover {
+	background: #2185d0 !important;
+	color: #fff !important;
+}
+
+.card .content {
+	text-align: center;
+}
+
+.ui.attached.header.table-title {
+	padding: 2rem;
+}
+
+/* utilities */
+
+.bold {
+	font-weight: bold;
+}
+
+.hide,
+.hidden {
+	display: none;
+}
+
+.capitalize {
+	text-transform: capitalize !important;
+}
+
+.uppercase {
+	text-transform: uppercase !important;
+}
+
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }

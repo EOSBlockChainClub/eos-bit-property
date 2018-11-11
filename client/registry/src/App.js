@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { withRouter } from 'react-router-dom';
+import TopNavigation from './components/navigation/TopNavigation';
+import Routes from './components/routes';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="app">
+				<TopNavigation />
+				<div className="app-body">
+					<Routes />
+				</div>
+			</div>
+		);
+	}
 }
 
-export default App;
+//have to use withRouter here. See https://reacttraining.com/react-router/web/guides/redux-integration
+export default withRouter(App);
