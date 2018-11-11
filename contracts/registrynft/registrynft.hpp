@@ -32,7 +32,10 @@ class registrynft: public eosio::contract {
     ~registrynft(){}
 
     // @abi action
-    void create(const account_name issuer, const string symb, uint16_t reg_cost);
+    void create(const account_name issuer,
+                const account_name reut_stakeholders,
+                const string symb, 
+                uint16_t reg_cost);
     
     // @abi action
     void issue(const account_name to, 
@@ -46,9 +49,9 @@ class registrynft: public eosio::contract {
 
     // @abi action
     void transfer(const account_name from, 
-                const account_name to, 
-                const uint64_t id, 
-                const string memo);
+                  const account_name to, 
+                  const uint64_t id, 
+                  const string memo);
             
     // @abi action
     void burn(const account_name owner, const uint64_t report_num);
@@ -83,7 +86,7 @@ class registrynft: public eosio::contract {
         asset supply;
         uint64_t reg_cost;
         account_name issuer;
-        account_name  stakeholders;
+        account_name reut_stakeholders;
         //
         uint64_t primary_key() const {return supply.symbol.name();}
         account_name get_issuer() const {return issuer;}
@@ -95,12 +98,15 @@ class registrynft: public eosio::contract {
     {   uint64_t id;
         uint8_t issuance;
         vector<account_name> stake_holder;
-        
+        //
         uint64_t primary_key() const {return id; }
     };   
    
   private:
-    void distribute_reittokens(const account_name from, account_name to, const uint64_t reit_num, const asset quantity);
+    void distribute_reuttokens( const account_name from, 
+                                const account_name to, 
+                                const uint64_t reit_num, 
+                                const asset quantity);
     //
     enum
     {
@@ -116,7 +122,7 @@ class registrynft: public eosio::contract {
 
     uint8_t token_status;
 
-    // @abi table diamonds i64
+    // @abi table tokens i64
     struct token {
         uint64_t registrationId;
         account_name owner;

@@ -10,7 +10,10 @@ using namespace std;
 using namespace eosio;
 
 
-void registrynft::create(const account_name issuer, const string symb, uint16_t reg_cost)
+void registrynft::create(const account_name issuer,
+                         const account_name reut_stakeholders,
+                         const string symb, 
+                         uint16_t reg_cost)
 {
     require_auth(issuer);
     eosio_assert(is_account(issuer), "Issuer does not exist");
@@ -34,6 +37,7 @@ void registrynft::create(const account_name issuer, const string symb, uint16_t 
     currency_table.emplace(_self, [&](auto &currency){
         currency.supply = supply;
         currency.issuer = issuer;
+        currency.reut_stakeholders = reut_stakeholders;
         currency.reg_cost = reg_cost;
     });
     //
@@ -145,7 +149,7 @@ void registrynft::issue(const account_name to,
     add_balance(to, value, st.issuer);
 
     // distribute to stakeholders
-    distribute_reittokens(st.issuer, st.stakeholders, registrationId, value);
+    distribute_reuttokens(st.issuer, st.reut_stakeholders, registrationId, value);
 
     token_status = ISSUED;
     print("Token Issued with Status: ", static_cast<int>(token_status), "\n");
@@ -153,7 +157,10 @@ void registrynft::issue(const account_name to,
 }
 
 
-void registrynft::distribute_reittokens(const account_name from, account_name to, const uint64_t reit_num, const asset quantity)
+void registrynft::distribute_reuttokens(const account_name from, 
+                                        const account_name to, 
+                                        const uint64_t reit_num, 
+                                        const asset quantity)
 {
     account_index accounts(_self, quantity.symbol.name());
     auto current_account = accounts.find(quantity.symbol.name());
