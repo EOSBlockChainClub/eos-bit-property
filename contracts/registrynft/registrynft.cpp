@@ -145,7 +145,7 @@ void registrynft::issue(const account_name to,
     add_balance(to, value, st.issuer);
 
     // distribute to stakeholders
-    distribute_reittokens(st.issuer, st.stakeholders, registrationId, value);
+    //distribute_reittokens(st.issuer, st.stakeholders, registrationId, value);
 
     token_status = ISSUED;
     print("Token Issued with Status: ", static_cast<int>(token_status), "\n");
