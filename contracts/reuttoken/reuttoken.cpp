@@ -44,7 +44,7 @@ void reuttoken::issue(account_name to, asset quantity, string memo)
     require_auth(st.issuer);
     eosio_assert(quantity.is_valid(), "invalid quantity");
     eosio_assert(quantity.amount > 0, "must issue positive quantity");
-    eosio_assert((quantity+st.supply).amount <= st.max_supply, "quantity to be issued exceeds max-supply!!" );
+    eosio_assert(st.supply.amount <= st.max_supply, "quantity to be issued exceeds max-supply!!" );
 
     print("quantity-symbol: ", quantity.symbol, "\n");
     print("supply-symbol: ", st.symbol, "\n");
