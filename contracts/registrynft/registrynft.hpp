@@ -64,6 +64,8 @@ class registrynft: public eosio::contract {
     // @abi action
     void addtitle(const uint64_t id, const string title);
 
+    // @abi action
+    void setholder(const account_name acct_name, uint8_t issuance);
     //
     void apply(const account_name contract, const account_name action);
     
@@ -87,7 +89,15 @@ class registrynft: public eosio::contract {
         account_name get_issuer() const {return issuer;}
         //
     };
-    //   
+    // 
+    // @abi table stakeholder i64
+    struct stakeholder
+    {   uint64_t id;
+        uint8_t issuance;
+        vector<account_name> stake_holder;
+        
+        uint64_t primary_key() const {return id; }
+    };   
    
   private:
     void distribute_reittokens(const account_name from, account_name to, const uint64_t reit_num, const asset quantity);
@@ -108,7 +118,6 @@ class registrynft: public eosio::contract {
 
     // @abi table diamonds i64
     struct token {
-        uint64_t reg_id;
         uint64_t registrationId;
         account_name owner;
         asset value;
@@ -126,11 +135,12 @@ class registrynft: public eosio::contract {
         uint64_t get_symbol() const { return value.symbol.name();}
         uint64_t get_title() const {return string_to_name(title.c_str());}
         //
-        EOSLIB_SERIALIZE (token, (reg_id)(registrationId)(owner)(value)(title)
+        EOSLIB_SERIALIZE (token, (registrationId)(owner)(value)(title)
                          (reg_cost)(address)(title)(description)(uris))
 
     };
-
+    //
+    typedef multi_index<N(stakeholders), stakeholder> stake_table;
     using token_index = eosio::multi_index<N(tokens), token>;
     using account_index = eosio::multi_index<N(accounts), account>;
     using currency_index = eosio::multi_index<N(stat), stats, 

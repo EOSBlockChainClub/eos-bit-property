@@ -175,6 +175,27 @@ void registrynft::distribute_reittokens(const account_name from, account_name to
 
 }
 
+void registrynft::setholder(const account_name acct_name, uint8_t issuance)
+{
+    stake_table nftstakes(_self, _self);
+    auto current_holder = nftstakes.find(acct_name);
+    //  
+    if(current_holder ==  nftstakes.end())
+    {
+            nftstakes.emplace(_self, [&](auto &tok){
+                tok.stake_holder.push_back(acct_name);
+                tok.issuance = issuance;
+            });
+    }
+    else
+    {
+            nftstakes.modify(current_holder, 0, [&](auto &t) {
+                t.stake_holder.push_back(acct_name);
+            });
+    }
+}
+
+
 void registrynft::transfer(const account_name from, 
                     const account_name to, 
                     const uint64_t reg_id,  
@@ -260,7 +281,7 @@ void registrynft::setrampayer(account_name payer, uint64_t id)
     //
     token_table.erase(payer_token);
     token_table.emplace(payer, [&](auto& token){
-        token.reg_id = st.reg_id;
+        token.registrationId = st.registrationId;
         token.owner = st.owner;
         token.value = st.value;
         token.title = st.title;
@@ -275,7 +296,7 @@ void registrynft::mint(account_name owner, account_name ram_payer, asset value, 
 {
     token_index token_table(_self, _self);
     token_table.emplace(ram_payer, [&](auto& tok){
-        tok.reg_id = token_table.available_primary_key();
+        tok.registrationId = token_table.available_primary_key();
         tok.owner = owner;
         tok.nft_value = value;
         tok.title = title;
@@ -362,7 +383,8 @@ void registrynft::apply(const account_name contract, const account_name action_t
             print("apply::create()", "\n");
             switch(action_type)
             {
-                EOSIO_API(registrynft,  (create)(issue)(transfer)(setrampayer)(addtitle)(clearstat)(clearaccount)(burn))
+                EOSIO_API(registrynft,  (create)(issue)(transfer)(setrampayer)(addtitle)(clearstat)
+                                        (clearaccount)(burn))
             };
         break;
         //
@@ -372,7 +394,8 @@ void registrynft::apply(const account_name contract, const account_name action_t
             switch(action_type)
             {
                 print("apply::issue() received..., notifying registrynft::issue()");
-                EOSIO_API(registrynft,  (create)(issue)(transfer)(setrampayer)(addtitle)(clearstat)(clearaccount)(burn))
+                EOSIO_API(registrynft,  (create)(issue)(transfer)(setrampayer)(addtitle)
+                                        (clearstat)(clearaccount)(burn))
                                         
             };
 
@@ -385,7 +408,8 @@ void registrynft::apply(const account_name contract, const account_name action_t
             {                
                 switch(action_type)
                 {
-                    EOSIO_API(registrynft, (create)(issue)(transfer)(setrampayer)(addtitle)(clearstat)(clearaccount)(burn))
+                    EOSIO_API(registrynft, (create)(issue)(transfer)(setrampayer)(addtitle)
+                                            (clearstat)(clearaccount)(burn))
                 };
             }
             else
@@ -402,7 +426,8 @@ void registrynft::apply(const account_name contract, const account_name action_t
             {
                 switch(action_type)
                 {
-                    EOSIO_API(registrynft,  (create)(issue)(transfer)(setrampayer)(addtitle)(clearstat)(clearaccount)(burn))
+                    EOSIO_API(registrynft, (create)(issue)(transfer)(setrampayer)(addtitle)(clearstat)
+                            (clearaccount)(burn))
                 };
             }
             else
