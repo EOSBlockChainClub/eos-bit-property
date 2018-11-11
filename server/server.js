@@ -1,5 +1,5 @@
 var app = require('express')(); // Express App include
-var http = require('http').Server(app); // http server
+var http = require('http')// http server
 var bodyParser = require("body-parser"); // Body parser for fetch posted data
 Eos = require('eosjs');
 var events = require('events');
@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 
 
 async function pushAction(caller, contractName, functionName, data) {
-	eos = Eos({ keyProvider: registrerwif, chainId:"cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f", httpEndpoint: "http://127.0.0.1:8888" });
+	eos = Eos({ keyProvider: registrerwif, chainId:"cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f", httpEndpoint: "http://127.0.0.1:8889" });
 	console.log(data);
 	eos.transaction({
     actions: [
@@ -45,7 +45,7 @@ async function pushAction(caller, contractName, functionName, data) {
         name: functionName,
         authorization: [
         {
-            actor: "registrynft",
+            actor: caller,
             permission: "active"
         }
         ],
@@ -63,7 +63,7 @@ async function pushAction(caller, contractName, functionName, data) {
 
 async function transferTokens(caller, contractName, params) {
 	console.log("tfr called")
-	eos = Eos({ keyProvider: registrerwif, chainId:"cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f", httpEndpoint: "http://127.0.0.1:8888" });
+	eos = Eos({ keyProvider: registrerwif, chainId:"cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f", httpEndpoint: "http://127.0.0.1:8889" });
 	console.log(eos.transaction);
 	eos.transaction({
     actions: [
@@ -94,7 +94,7 @@ async function transferTokens(caller, contractName, params) {
 }
 
 getBalance = (contractName, caller) => {
-	eos = Eos({ keyProvider: wif, chainId:"cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f", httpEndpoint: "http://dev.cryptolions.io:18888" });
+	eos = Eos({ keyProvider: wif, chainId:"cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f", httpEndpoint: "http://dev.cryptolions.io:18889" });
 	eos.getTableRows({
 	  code:contractName,
       scope:caller,
@@ -107,7 +107,7 @@ getBalance = (contractName, caller) => {
 }
 
 async function getTableRows(contractName, table, caller) {
-	eos = Eos({ keyProvider: wif, chainId:"cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f", httpEndpoint: "http://127.0.0.1:8888" });
+	eos = Eos({ keyProvider: wif, chainId:"cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f", httpEndpoint: "http://127.0.0.1:8889" });
 	eos.getTableRows({
 	  code:contractName,
       scope:contractName,
@@ -168,9 +168,10 @@ updateAuth = (accountName, contractName, accountAuth, pubkey) => {
 app.post('/api/accounts/:accounts/registrations', async function(req, res) {
 	console.log(req.params.accounts);
 	console.log(req.body);
-	var params = {from:req.params.accounts,to:"registrynft",quantity:"150.00 REUT",memo:"memo"}
+	var params = {from:req.params.accounts,to:"registrynft",quantity:"15.00 REUT",memo:"memo"}
 	var data = {to:req.params.accounts,registrationId:req.body.registrationId,owner: req.params.accounts,value:req.body.value+" REUT",
 	address:req.body.address,title:req.body.title,description:req.body.description,uris:["House"+req.body.registrationId]}
+	
 	var resultTransfer = await transferTokens(req.params.accounts, "reutadmin", params);
 	var resultPush = await pushAction(req.params.accounts, "registrynft", "issue", data);	
 	if(resultPush.result != null){
@@ -187,29 +188,39 @@ app.post('/api/accounts/:accounts/registrations', async function(req, res) {
 app.get('/api/accounts/:accounts/registrations', async function(req, res) {
 	console.log("testing");
 	console.log(req.body);
-	//res.status(200).send([{nftId:"NFT1",registrationId:"RG123",title:"2bhk",address:"11th street NYC",value:"50000 USD",tokenize:false},{nftId:"NFT2",registrationId:"RG456",title:"5bhk",address:"Union square NYC",value:"90000 USD",tokenize:true}]);
+	res.status(200).send([{nftId:"NFT1",registrationId:"RG123",title:"2bhk",address:"11th street NYC",value:"50000 USD",tokenize:false},{nftId:"NFT2",registrationId:"RG456",title:"5bhk",address:"Union square NYC",value:"90000 USD",tokenize:true}]);
 	
-	var result = await getTableRows(contractName, diamonds, req.params.accounts);	
-	if(result != null){
-		//res.status(200).send(result.result);
-		res.status(200).send([{id:"NFT1",title:"2bhk",value:"50000 USD"}]);
+	var resultTable = await getTableRows(contractName, diamonds, req.params.accounts);	
+	if(resultTable.result != null){
+		res.status(200).send(resultTable.result);
+		//res.status(200).send([{id:"NFT1",title:"2bhk",value:"50000 USD"}]);
 	}
 	else{
-		//res.status(500).send(result.error);
-		res.status(500).send({result:"FAILURE"});
+		res.status(500).send(resultTable.error);
+		//res.status(500).send({result:"FAILURE"});
 	}
 });
 
-app.post('/api/accounts/:account/issuetokens', function(req, res) {
-	var resultPushCreate =  pushAction(reotAdmin, reotToken, create, req.body);	
-	var resultPushIssue =  pushAction(reotAdmin, reotToken, issue, req.body);
-	var resultPushAction =  pushAction(reotAdmin, registrynft, tokenissued, req.body);
+app.post('/api/accounts/:accounts/issuetokens', async function(req, res) {
+	var data = {issuer:"reotadmin",maximum_supply:req.body.maximum_supply+".00 "+req.body.symbol};
+	var resultPushCreate =  await pushAction("reotadmin", "reotadmin", "create", data);	
+	console.log(resultPushCreate);
+	var data = {to:req.params.accounts,quantity:req.body.maximum_supply+".00 "+req.body.symbol,memo:"memo"};
+	var resultPushIssue =  await pushAction("reotadmin", "reotadmin", "issue", data);
+
+	//var resultPushAction =  pushAction(reotAdmin, registrynft, issuance, req.body);
+	if(resultPushIssue != null){
+		res.status(200).send(resultPushIssue.result);
+	}
+	else{
+		res.status(500).send(resultPushIssue.error);
+	}
 });
 
 
 app.get('/api/news', function(req, resp) {
 	var parsedData;
-	https.get('https://newsapi.org/v2/everything?q=eosio&from=2018-10-11&sortBy=publishedAt&apiKey=d0d1bdaf72e74d80a7b9b18d7d01a90e'
+	http.get('http://18.219.91.9/api/news'
 , (res) => {
 	
         let rawData = '';
@@ -221,7 +232,7 @@ app.get('/api/news', function(req, resp) {
         res.on('end', () => {
           try {
             parsedData = JSON.parse(rawData);
-			resp.status(200).send(parsedData.articles);
+			resp.status(200).send(parsedData);
 
           } catch (e) {
 			  
@@ -233,6 +244,32 @@ app.get('/api/news', function(req, resp) {
 
 });
 
+
+app.get('/api/graph/:time', function(req, resp) {
+	var parsedData;
+	http.get('http://18.219.91.9/api/bcdausd/performance/'+req.params.time
+, (res) => {
+	
+        let rawData = '';
+
+		res.on('data', (chunk) => {
+          rawData += chunk;
+        });
+
+        res.on('end', () => {
+          try {
+            parsedData = JSON.parse(rawData);
+			resp.status(200).send(parsedData);
+
+          } catch (e) {
+			  
+          }
+        });
+      }).on('error', (e) => {
+		  
+      });
+
+});
 
 app.get('/api/updateauth', function(req, res) {
 });
