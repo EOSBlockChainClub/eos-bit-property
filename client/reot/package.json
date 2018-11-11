@@ -29,5 +29,5 @@
 	"devDependencies": {
 		"semantic-ui": "^2.4.0"
 	},
-	"proxy": "http://d166250e.ngrok.io"
+	"proxy": "http://cec9f7b5.ngrok.io"
 }
