@@ -17,5 +17,5 @@ export const register = (data) => {
 		.then(({ data }) => data);
 };
 
-/* BCDA Tokens for an account */
+/* Registrations for an account */
 export const fetchRegistrations = () => axios.get(`/api/accounts/${eosAccount}/registrations`).then(({ data }) => data);

@@ -26,5 +26,5 @@
 		"extends": "react-app"
 	},
 	"browserslist": [ ">0.2%", "not dead", "not ie <= 11", "not op_mini all" ],
-	"proxy": "http://4cfea499.ngrok.io"
+	"proxy": "http://cec9f7b5.ngrok.io"
 }
