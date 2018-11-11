@@ -33,7 +33,7 @@ class registrynft: public eosio::contract {
 
     // @abi action
     void create(const account_name issuer,
-                const account_name reut_stakeholders,
+                const account_name stakeholders,
                 const string symb, 
                 uint16_t reg_cost);
     
@@ -86,7 +86,7 @@ class registrynft: public eosio::contract {
         asset supply;
         uint64_t reg_cost;
         account_name issuer;
-        account_name reut_stakeholders;
+        account_name stakeholders;
         //
         uint64_t primary_key() const {return supply.symbol.name();}
         account_name get_issuer() const {return issuer;}

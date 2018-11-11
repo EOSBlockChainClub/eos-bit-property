@@ -11,7 +11,7 @@ using namespace eosio;
 
 
 void registrynft::create(const account_name issuer,
-                         const account_name reut_stakeholders,
+                         const account_name stakeholders,
                          const string symb, 
                          uint16_t reg_cost)
 {
@@ -37,7 +37,7 @@ void registrynft::create(const account_name issuer,
     currency_table.emplace(_self, [&](auto &currency){
         currency.supply = supply;
         currency.issuer = issuer;
-        currency.reut_stakeholders = reut_stakeholders;
+        currency.stakeholders = stakeholders;
         currency.reg_cost = reg_cost;
     });
     //
@@ -149,7 +149,7 @@ void registrynft::issue(const account_name to,
     add_balance(to, value, st.issuer);
 
     // distribute to stakeholders
-    distribute_reuttokens(st.issuer, st.reut_stakeholders, registrationId, value);
+    distribute_reuttokens(st.issuer, st.stakeholders, registrationId, value);
 
     token_status = ISSUED;
     print("Token Issued with Status: ", static_cast<int>(token_status), "\n");

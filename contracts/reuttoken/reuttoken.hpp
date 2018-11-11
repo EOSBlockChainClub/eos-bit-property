@@ -53,7 +53,7 @@ class reuttoken : public eosio::contract
             account_name issuer;
             asset supply;
             symbol_type symbol;
-            uint16_t max_supply;
+            uint64_t max_supply;
             uint64_t primary_key() const { return supply.symbol.name(); }
       };
 
