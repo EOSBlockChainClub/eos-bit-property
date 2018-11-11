@@ -1,0 +1,116 @@
+/* Menu styles */
+
+.app-menu {
+	position: fixed;
+	top: 100px;
+	left: 0;
+	width: 350px;
+	height: calc(100vh - 100px);
+	background: #282b3a;
+	color: #ffffff;
+}
+
+.app-menu ul {
+	padding-inline-start: 0;
+}
+
+.app-menu .ui.avatar.image {
+	border-radius: 0;
+	width: 24px;
+	height: 24px;
+	margin-right: 1em;
+}
+
+.menu__wrap {
+	position: absolute;
+	top: 3.5em;
+	bottom: 0;
+	overflow: hidden;
+	width: 100%;
+}
+
+.menu__item {
+	display: block;
+	width: calc(100% - 50px);
+	text-overflow: ellipsis;
+	color: #ffffff;
+}
+
+.menu__item.active {
+	background-color: #703dd3;
+	border-radius: 0 100px 100px 0;
+}
+
+.menu__link {
+	font-weight: bold;
+	position: relative;
+	display: block;
+	padding: 1em 0em 1em 3em;
+	-webkit-transition: color 0.1s;
+	transition: color 0.1s;
+	cursor: pointer;
+}
+
+/*
+.menu__link:hover,
+.menu__link:focus,
+.menu__link[data-submenu]:hover::after,
+.menu__link[data-submenu]:focus::after {
+	color: #703DD3;
+}
+*/
+
+/* Open and close buttons */
+
+.action {
+	position: absolute;
+	display: block;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+	border: none;
+	background: none;
+}
+
+.action:focus {
+	outline: none;
+}
+
+.action--open {
+	font-size: 1.5em;
+	top: 0.85em;
+	left: 0.85em;
+	display: none;
+	color: #fff;
+	position: fixed;
+	z-index: 1000;
+}
+
+.action--close {
+	font-size: 1.1em;
+	top: 1.25em;
+	right: 1em;
+	display: none;
+	color: #45464e;
+}
+
+@media screen and (max-width: 40em) {
+	.action--open,
+	.action--close {
+		display: block;
+	}
+	.app-menu {
+		z-index: 1000;
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+		-webkit-transition: -webkit-transform 0.3s;
+		transition: transform 0.3s;
+	}
+	.menu--open {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}

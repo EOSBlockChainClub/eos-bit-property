@@ -1,0 +1,314 @@
+/* Resets */
+
+/*
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+*/
+
+/* Icons as classes */
+
+.icon.icon-buy {
+	background: url(./assets/images/icons/buy.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-sell {
+	background: url(./assets/images/icons/sell.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-token {
+	background: url(./assets/images/icons/token.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-symbol-dark {
+	background: url(./assets/images/symbol-dark.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-validate {
+	background: url(./assets/images/icons/validate.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-pledge {
+	background: url(./assets/images/icons/pledge.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-redeem {
+	background: url(./assets/images/icons/redeem.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-identity {
+	background: url(./assets/images/icons/plus.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-up {
+	background: url(./assets/images/icons/arrow-up.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-down {
+	background: url(./assets/images/icons/arrow-down.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-previous {
+	background: url(./assets/images/icons/arrow-left.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-next {
+	background: url(./assets/images/icons/arrow-next.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-minus {
+	background: url(./assets/images/icons/minus.svg) no-repeat 50% 50%;
+}
+
+.icon.icon-plus {
+	background: url(./assets/images/icons/plus.svg) no-repeat 50% 50%;
+}
+
+/* Helper classes */
+
+.cf:before,
+.cf:after {
+	content: ' ';
+	display: table;
+}
+
+.cf:after {
+	clear: both;
+}
+
+.truncate {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.inline {
+	display: inline-block;
+}
+
+.no-margin {
+	margin: 0 !important;
+}
+
+/* Main styles */
+
+/* a, */
+.clickable,
+.link {
+	text-decoration: none;
+	color: #703dd3;
+	outline: none;
+	cursor: pointer;
+}
+
+.app-container {
+	overflow-y: auto;
+	height: 100vh;
+}
+
+.bc-header {
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: row;
+}
+
+.bc-header__main {
+	/* margin: 0 0 0 auto; */
+	background-color: #ffffff;
+	min-height: 100px;
+	padding: 20px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.bc-header__title {
+	flex: 1;
+	max-width: 100%;
+}
+
+.bc-logo {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 350px;
+	height: 100px;
+	/* padding: 1em 0 0 0; */
+	text-align: center;
+	color: #ffffff;
+	background: #703dd3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.bc-logo span {
+	font-weight: bold;
+	font-size: 24px;
+	margin-left: 0.2rem;
+}
+
+.app-content {
+	position: relative;
+	/* min-height: 300px; */
+	margin: 0 0 0 350px;
+}
+
+.documents > .document {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.quantity-selector {
+	text-align: center;
+}
+
+.quantity-selector > .value {
+	font-size: 100px;
+	font-weight: 300;
+	color: #703dd3;
+	margin: 0 1rem;
+}
+
+.workflow {
+	background: url(./assets/images/background.svg) no-repeat 50% 50%;
+}
+
+.workflow .icon.icon-previous {
+	background-color: white;
+	border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+	cursor: pointer;
+}
+
+.ui.white.button {
+	background-color: #fff;
+	color: #703dd3;
+}
+
+/* Semantic-UI overrides */
+.ui.button {
+	height: 48px;
+	border-radius: 100px;
+	min-width: 160px;
+}
+
+.ui.card {
+	border-radius: 0;
+	box-shadow: none;
+}
+.ui.card:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-width: 0 24px 24px 0;
+	border-style: solid;
+	border-color: #ffffff #efefef;
+}
+
+.ui.card > .content:first-child,
+.ui.cards > .card > .content:first-child {
+	max-height: 55px;
+}
+.ui.card > .content > .header,
+.ui.cards > .card > .content > .header {
+	color: #703dd3;
+	font-size: 20px !important;
+}
+/*
+.ui.card > .content,
+.ui.cards > .card > .content {
+	border-top: 0;
+}
+*/
+
+.ui.card .meta,
+.ui.cards > .card .meta,
+.ui.card > .extra,
+.ui.cards > .card > .extra {
+	color: #c4c4c4;
+	font-weight: bold;
+}
+
+/* rows that are direct child of column */
+.column > .row {
+	margin-bottom: 1em;
+}
+
+/* tab pane is a segment */
+.ui.tab.segment {
+	border: 0;
+	box-shadow: none;
+}
+
+.ui.basic.table thead th {
+	border: 0;
+}
+
+.ui.header > .icon + .content {
+	padding-left: 0;
+}
+
+.ui.feed > .event {
+	margin: 1rem 0;
+}
+
+.ui.selection.dropdown {
+	border-color: #703dd3;
+	border-style: solid;
+	border-width: 0 0 2px 0;
+	border-radius: 0;
+	color: #703dd3;
+}
+
+.ui.selection.dropdown .menu {
+	border: 0;
+}
+
+.ui.statistic > .value .icon,
+.ui.statistics .statistic > .value .icon {
+	width: 24px;
+}
+
+@media screen and (max-width: 40em) {
+	.bc-header {
+		/* padding-top: 3em; */
+		padding-top: 66px;
+	}
+	.bc-header__main {
+		width: 100%;
+		text-align: left;
+		min-height: 148px;
+	}
+	.bc-header__title button:only-child,
+	.bc-header__title .ui.primary.button {
+		width: 100%;
+	}
+	.bc-logo {
+		/* display: none; */
+		height: 66px;
+		width: 100%;
+		z-index: 100;
+	}
+	.app-content {
+		margin: 0;
+	}
+	body,
+	.app-container {
+		height: auto;
+		overflow: auto;
+	}
+
+	.ui.grid > .row > [class*="right aligned"].column.column {
+		text-align: center;
+	}
+
+	div > button.ui.button {
+		margin-bottom: 1rem;
+	}
+}

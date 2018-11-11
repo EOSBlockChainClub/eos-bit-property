@@ -1,0 +1,45 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+
+/*-------------------
+       Fonts
+--------------------*/
+
+@fontName          : 'effra';
+@fontSmoothing     :  antialiased;
+
+@headerFont        : @fontName, sans-serif;
+@pageFont          : @fontName, sans-serif;
+
+@importGoogleFonts : false;
+
+/*---  Colors  ---*/
+
+@purple            : #703DD3;
+@black             : #282B3A;
+@grey              : #C4C4C4;
+@green             : #00BF4D;
+
+/*---  Brand Colors  ---*/
+@primaryColor      : @purple;
+@secondaryColor    : @black;
+
+
+/*-------------------
+      Page
+--------------------*/
+
+@pageBackground      : #EFEFEF;
+@fontSize            : 16px;
+@lineHeight          : 1.25;
+@textColor           : @black;
+
+
+/*-------------------
+       Links
+--------------------*/
+
+@linkColor           : @purple;
+@linkHoverColor      : darken(saturate(@linkColor, 20), 15, relative);

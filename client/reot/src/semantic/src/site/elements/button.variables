@@ -1,0 +1,17 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+
+/* Button */
+
+@backgroundColor: #efefef;
+
+/* Text */
+
+@fontWeight: @bold;
+@textColor: #703DD3;
+
+
+/* Labeled Icon */
+@labeledIconBackgroundColor: transparent;

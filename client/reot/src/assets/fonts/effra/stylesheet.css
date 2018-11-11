@@ -1,0 +1,23 @@
+@font-face {
+	font-family: 'effra';
+	src: url('./effra_light.woff2') format('woff2'), url('./effra_light.woff') format('woff'),
+		url('./effra_light.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: 'effra';
+	src: url('./effra_regular.woff2') format('woff2'), url('./effra_regular.woff') format('woff'),
+		url('./effra_regular.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'effra';
+	src: url('./effra_bold.woff2') format('woff2'), url('./effra_bold.woff') format('woff'),
+		url('./effra_bold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 700;
+}
